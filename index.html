@@ -14,9 +14,18 @@
 
     <link href="marvel/assets/materialize/css/materialize.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
 </head>
-<body>
+
+<body class="blue-grey darken-2">
+    <nav>
+        <div class="nav-wrapper red-marvel">
+          <a href="/marvel/#/characters/nameStartsWith" class="brand-logo">Marvel Developer API</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/marvel/#/characters/nameStartsWith">Home</a></li>            
+          </ul>
+        </div>
+    </nav>
+
     <div class="container">
         <div ng-app="marvel">
             <div ng-view></div>

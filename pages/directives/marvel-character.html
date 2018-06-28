@@ -1,0 +1,73 @@
+<div marvel-loading></div>
+
+<div marvel-search-not-found></div> 
+
+<a class="btn-small halfway-fab waves-effect waves-light red-marvel" href="/marvel/#/characters/nameStartsWith">Voltar</a>
+
+<div class="row" ng-init="getCharacterById()" ng-show="object_result.count > 0">    
+    <div class="col s12 m8 offset-m2">
+      <div class="card">
+
+        <div class="card-image">
+          <img ng-src="{{object_result.results[0].thumbnail.path}}/detail.jpg">          
+        </div>
+
+        <div class="card-content">
+          <span class="card-title">{{object_result.results[0].name}}</span>
+          <p>{{object_result.results[0].description}}</p>
+          <p ng-show="show_description">{{object_result.results[0].description}}</p>
+        </div>
+
+
+        <ul class="collection" ng-if="object_result.results[0].comics.items.length > 0">
+          <li class="collection-item clickable" ng-class="{'active' : show_comics}" ng-click="show_comics = !show_comics">
+              <h5>Comics 
+                <i class="material-icons" ng-show="show_comics">keyboard_arrow_up</i>
+                <i class="material-icons" ng-hide="show_comics">keyboard_arrow_down</i>
+              </h5>
+          </li>            
+          <li class="collection-item" ng-repeat="item in object_result.results[0].comics.items" ng-show="show_comics">
+            {{item.name}}            
+          </li>            
+        </ul>
+
+        <ul class="collection" ng-if="object_result.results[0].series.items.length > 0">
+            <li class="collection-item clickable" ng-class="{'active' : show_series}" ng-click="show_series = !show_series">
+                <h5>Séries 
+                  <i class="material-icons" ng-show="show_series">keyboard_arrow_up</i>
+                  <i class="material-icons" ng-hide="show_series">keyboard_arrow_down</i>
+                </h5>
+            </li>            
+            <li class="collection-item" ng-repeat="item in object_result.results[0].series.items" ng-show="show_series">{{item.name}}</li>            
+        </ul>
+
+        <ul class="collection" ng-if="object_result.results[0].events.items.length > 0">
+            <li class="collection-item clickable" ng-class="{'active' : show_events}" ng-click="show_events = !show_events">
+                <h5>Eventos 
+                  <i class="material-icons" ng-show="show_events">keyboard_arrow_up</i>
+                  <i class="material-icons" ng-hide="show_events">keyboard_arrow_down</i>
+                </h5>
+            </li>            
+            <li class="collection-item" ng-repeat="item in object_result.results[0].events.items" ng-show="show_events">{{item.name}}</li>            
+        </ul>
+
+        <ul class="collection" ng-if="object_result.results[0].stories.items.length > 0">
+            <li class="collection-item clickable" ng-class="{'active' : show_stories}" ng-click="show_stories = !show_stories">
+                <h5>Histórias 
+                  <i class="material-icons" ng-show="show_stories">keyboard_arrow_up</i>
+                  <i class="material-icons" ng-hide="show_stories">keyboard_arrow_down</i>
+                </h5>
+            </li>            
+            <li class="collection-item" ng-repeat="item in object_result.results[0].stories.items" ng-show="show_stories">{{item.name}}</li>            
+        </ul>
+
+        <ul class="collection" ng-if="object_result.results[0].urls.length > 0">          
+          <li class="collection-item">Fontes e Links:</li>        
+          <li class="collection-item" ng-repeat="url in object_result.results[0].urls">            
+            <a class="cap" href="{{url.url}}">{{url.type}}</a>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+</div>

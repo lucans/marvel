@@ -1,22 +1,31 @@
 <div class="row">
-    <div class="card">
+    <div class="card white col s10 offset-s1">
         <form ng-submit="getByNameStartsWith(nameStartsWith)">
             <div class="input-field col s8 offset-s2">
-              <input value="Alvin" id="pesquisa_personagens" type="text" ng-model="nameStartsWith" ng-init="nameStartsWith = 'spider-man'">
+              <input value="Alvin" id="pesquisa_personagens" type="text" ng-model="nameStartsWith" ng-init="nameStartsWith = 'Spider-Man'" required="true">
               <label class="active" for="pesquisa_personagens">Pesquisa de Personagens</label>
-              <a class="waves-effect waves-light red btn" ng-click="getByNameStartsWith(nameStartsWith)">Pesquisar</a>
+              <a class="waves-effect waves-light red-marvel btn" ng-click="getByNameStartsWith(nameStartsWith)">Pesquisar</a>
+
+              <span class="badge red-marvel darken-3 white-text clickable" ng-click="nameStartsWith = 'Spider-Man'; getByNameStartsWith(nameStartsWith)">Spider-Man</span>
+              <span class="badge green darken-3 white-text clickable" ng-click="nameStartsWith = 'Hulk'; getByNameStartsWith(nameStartsWith)">Hulk</span>
+              <span class="badge grey darken-3 white-text clickable" ng-click="nameStartsWith = 'Thor'; getByNameStartsWith(nameStartsWith)">Thor</span>
+              <span class="badge blue darken-3 white-text clickable" ng-click="nameStartsWith = 'Captain'; getByNameStartsWith(nameStartsWith)">Captain</span>              
             </div>
         </form>
     </div>
 </div>
+
+<div marvel-loading></div>
+
+<div marvel-search-not-found></div>
         
 <div class="row">
-    <label ng-if="characters.length > 0">{{characters.length}} resultados encontrados.</label><br>
-    <div class="col s12 m4" ng-repeat="character in characters">
+    <div marvel-search-count></div>  
+    <div class="col s12 m4" ng-repeat="character in object_result.results">
       <div class="card">
         <div class="card-image">
           <img ng-src="{{character.thumbnail.path}}/standard_fantastic.jpg">
-          <a class="btn-floating btn-small halfway-fab waves-effect waves-light red" ng-show="character.description" ng-click="show_description = !show_description"><i class="material-icons">add</i></a>
+          <a class="btn-floating btn-large halfway-fab waves-effect waves-light red-marvel" href="marvel/#/characters/profile/{{character.id}}">Ver mais</a>
         </div>
         <div class="card-content">
           <span class="card-title">{{character.name}}</span>
@@ -24,35 +33,15 @@
           <p ng-show="show_description">{{character.description}}</p>
         </div>
 
-        <ul class="collection">
-            <li class="collection-item clickable" ng-click="show_series = !show_series"><h5>Séries <i class="material-icons">keyboard_arrow_down</i></h5></li>            
+        <ul class="collection" ng-if="character.series.items.length > 0">
+            <li class="collection-item clickable" ng-click="show_series = !show_series">
+              <h5>Séries 
+                <i class="material-icons" ng-show="show_series">keyboard_arrow_up</i>
+                <i class="material-icons" ng-hide="show_series">keyboard_arrow_down</i>
+              </h5>
+            </li>            
             <li class="collection-item" ng-repeat="item in character.series.items" ng-show="show_series">{{item.name}}</li>            
         </ul>
       </div>
     </div>
-</div>
-
-<div class="row" ng-show="loading">      
-    <center>    
-        <div class="preloader-wrapper big active">
-            <div class="spinner-layer spinner-red-only">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div>
-              <div class="gap-patch">
-                <div class="circle"></div>
-              </div>
-              <div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
-            </div>
-        </div>
-        <br><span>Buscando dados</span>
-    </center>
-</div>
-
-<div class="row" ng-show="characters && characters.length <= 0">
-    <center>    
-        <span>Nenhum resultado encontrado. Tente uma pesquisa mais genérica.</span>
-    </center>
 </div>

@@ -5524,7 +5524,7 @@ button.btn-floating {
 .btn-large {
   height: 54px;
   line-height: 54px;
-  font-size: 15px;
+  font-size: 10px;
   padding: 0 28px;
 }
 
@@ -9090,4 +9090,16 @@ input[type=range]::-ms-thumb {
 
 .clickable{
   cursor: pointer;
+}
+
+.cap{
+  text-transform: capitalize;
+}
+
+.big-icon{
+  font-size: 5em !important;
+}
+.red-marvel{
+  background-color: #F0141E;
+  color: white;
 }
