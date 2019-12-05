@@ -3,7 +3,7 @@ var marvel = angular.module('marvel', ['ngRoute'])
 
 .config(function($routeProvider, $locationProvider) {
     $routeProvider    
-    .when("/characters/nameStartsWith", {
+    .when("/characters/search", {
         templateUrl : "marvel/pages/home.html",
         controller: "homeCtrl",
         title: "Marvel Developer - Search"
@@ -15,8 +15,14 @@ var marvel = angular.module('marvel', ['ngRoute'])
         title: "Marvel Developer - Character"
     })       
 
+    .when("/comics/:id", {
+        templateUrl : "marvel/pages/directives/marvel-comic.html",
+        controller: "homeCtrl",
+        title: "Marvel Developer - Comic"
+    })   
+
     .otherwise({
-        redirectTo: '/characters/nameStartsWith'
+        redirectTo: '/characters/search'
     });
 
 })
@@ -49,7 +55,7 @@ var marvel = angular.module('marvel', ['ngRoute'])
         });
     }    
 
-    $s.getCharacterById = function(){    
+    $s.getByRoute = function(){    
         if (!angular.isUndefined($s.object_result)) {
             $s.object_result.results = {};
         }
@@ -62,6 +68,26 @@ var marvel = angular.module('marvel', ['ngRoute'])
         .finally(function(result){          
             $s.loading = false;
         });
+    }    
+
+    // $s.getComicById = function(){    
+    //     if (!angular.isUndefined($s.object_result)) {
+    //         $s.object_result.results = {};
+    //     }
+
+    //     $s.loading = true;    
+    //     apiFactory.get()
+    //     .then(function(result){                  
+    //         $s.object_result = result.data.data;                
+    //     })     
+    //     .finally(function(result){          
+    //         $s.loading = false;
+    //     });
+    // }
+
+    $s.stripCode = function(link){
+        var a = link.split("/");
+        return a[a.length - 1];
     }
 
 }])
@@ -82,5 +108,17 @@ var marvel = angular.module('marvel', ['ngRoute'])
 .directive('marvelSearchCount', function() {
   return {
     templateUrl: "marvel/pages/directives/marvel-search-count.html"
+  }
+})
+
+.directive('marvelCharacterSingle', function() {
+  return {
+    link: function (scope, elem, attrs) {
+        scope.details = attrs.details;
+    },
+    templateUrl: function(teste){
+        return "marvel/pages/directives/marvel-character-single.html"
+    }
+  
   }
 })
